@@ -16,6 +16,7 @@ class User extends React.Component{
 	}
 
 	logout() {
+		console.log(123)
 		// 清除cookies
 		const alert = Modal.alert
 		alert('注销', '确认退出登录吗？？？', [
