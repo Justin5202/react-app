@@ -10,6 +10,10 @@ const io = require('socket.io')(server)
 
 io.on('connection', (socket) => {
 	console.log('user login')
+	socket.on('sendmsg', (data) => {
+		console.log(data)
+		io.emit('recvmsg', data)
+	})
 })
 
 //新建app
