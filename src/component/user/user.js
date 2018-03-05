@@ -10,10 +10,6 @@ import { Redirect } from 'react-router-dom'
 	{logoutSubmit}
 )
 class User extends React.Component{
-	constructor(props) {
-		super(props)
-		this.logout = this.logout.bind(this)
-	}
 
 	logout() {
 		console.log(123)
@@ -36,7 +32,7 @@ class User extends React.Component{
 				<Result
 					img={<img src={require(`../img/${this.props.avatar}.png`)} style={{width:50}} alt="" />}
 					title={this.props.user}
-					message={this.props.type=="boss" ? this.props.company : null}
+					message={this.props.type==="boss" ? this.props.company : null}
 				/>
 				<List renderHeader={()=>"简介"}>
 					<Item
@@ -49,7 +45,7 @@ class User extends React.Component{
 				</List>
 				<WhiteSpace></WhiteSpace>
 				<List>
-					<Item onClick={this.logout}>退出登录</Item>
+					<Item onClick={()=>this.logout()}>退出登录</Item>
 				</List>
 			</div>
 		) : <Redirect to={this.props.redirectTo} />

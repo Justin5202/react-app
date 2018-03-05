@@ -1,6 +1,10 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
+const model = require('./model')
+const Chat = model.getModel('chat')
+const User = model.getModel('user')
+
 const userRouter = require('./user')
 
 const app = express()
@@ -11,8 +15,11 @@ const io = require('socket.io')(server)
 io.on('connection', (socket) => {
 	console.log('user login')
 	socket.on('sendmsg', (data) => {
-		console.log(data)
-		io.emit('recvmsg', data)
+		const {from, to, msg} = data
+		const chatid = [from, to].sort().join('_')
+		Chat.create({chatid, from, to, content: msg}, (err, doc) => {
+			io.emit('recvmsg', Object.assign({}, doc._doc))
+		})
 	})
 })
 
